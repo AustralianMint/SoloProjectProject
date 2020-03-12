@@ -1,3 +1,6 @@
+#render_template = Renders template and according arguments (e.g Name of person)
+#Uses Jinja2 for substitution of {{...}}
+
 from flask import render_template
 from app import app
 
