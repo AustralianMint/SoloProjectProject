@@ -1,8 +1,13 @@
+from flask import render_template
 from app import app
 
+#Decorators which invoke the function when called.
 @app.route('/')
 @app.route('/index')
 
 def index():
-    return "Hello World!"
+    #Fake user to greet. 
+    user = {'username': 'Miguel'}
+    #Returns template from /templates
+    return render_template('index.html', title='Home', user=user)
 
