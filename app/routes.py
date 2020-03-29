@@ -11,6 +11,22 @@ from app import app
 def index():
     #Fake user to greet. 
     user = {'username': 'Miguel'}
+
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
+        },
+        {
+            'author': {'username:' 'Susan'},
+            'body': 'The Avengers movie was so cool!' 
+        },
+        {
+            'author': {'username:' 'Peezus'},
+            'body': 'Damn Son That Movie Was Sooo super cooooooolll!'
+        }
+    ]
+
     #Returns template from /templates
-    return render_template('index.html', title='Home', user=user)
+    return render_template('index.html', title='Home', user=user, posts=posts)
 
