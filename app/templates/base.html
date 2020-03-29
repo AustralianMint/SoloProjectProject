@@ -1,0 +1,15 @@
+<html>
+    <head>
+       {% if title %}
+       <title>{{ title }} - SoloProjectProject</title>
+       {% else %}
+       <title>Wellcome to the SoloProject Project</title>
+       {% endif %} 
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <div>Microblog: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
