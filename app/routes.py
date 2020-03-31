@@ -5,13 +5,21 @@ from flask import render_template
 from app import app
 from app.forms import LoginForm
 
-#Decorators which invoke the function when called.
+#All decorators which invoke the function when called.
 @app.route('/')
 @app.route('/index')
-@app.route('/login')
+
+#Define what methods are accepted.
+@app.route('/login', methods=['GET', 'POST'])
 
 def login():
     form = LoginForm()
+    
+    #Validate on submit does form heavy lifting
+    if form.validate_on_submit():
+        flash('Login request for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
 
 def index():
