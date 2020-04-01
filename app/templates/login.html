@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
+    <form action="/login" method="POST" novalidate>
         <!--protect against CSRF attack-->
         {{ form.hidden_tag() }}
         <!--form elements dropped in w/ specs-->
