@@ -4,12 +4,13 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from app.models import User
 
 #All decorators which invoke the function when called.
 @app.route('/')
 @app.route('/index')
+@app.route('/logout')
 
 #Define what methods are accepted.
 @app.route('/login', methods=['GET', 'POST'])
@@ -52,3 +53,7 @@ def index():
 
     #Returns template from /templates
     return render_template('index.html', title='Home', user=user, posts=posts)
+
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
