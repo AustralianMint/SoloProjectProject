@@ -15,6 +15,7 @@ from app.models import User
 @app.route('/login', methods=['GET', 'POST'])
 
 def login():
+    #Handles special case if usr already logged in.
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
