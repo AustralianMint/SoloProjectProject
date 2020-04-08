@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from app import db
+from app import db, login
 
 #User class inherits from db.Model (base class)
 class User(UserMixin, db.Model):
@@ -33,3 +33,8 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+#Keep track of logged in user
+@login.user_loader
+def load_user(id):
+    return(User.query.get(int(id))
