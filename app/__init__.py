@@ -9,6 +9,9 @@ app.config.from_object(Config)
 login = LoginManager(app)
 #Referencing Config class in config module.
 
+login.login_view = 'login'
+#Flask-login nees 2 know what the login view func is.
+
 #Represents Database and Migration engine
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
