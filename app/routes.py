@@ -14,9 +14,7 @@ from werkzeug.urls import url_parse
 @login_required
 
 def index():
-    #Fake user to greet. 
-    user = {'username': 'Miguel'}
-
+    
     posts = [
         {
             'author': {'username': 'John'},
@@ -33,10 +31,7 @@ def index():
     ]
 
     #Returns template from /templates
-    return render_template('index.html', title='Home', user=user, posts=posts)
-
-
-@app.route('/logout')
+    return render_template('index.html', title='Home', posts=posts)
 
 #Define what methods are accepted.
 @app.route('/login', methods=['GET', 'POST'])
@@ -63,6 +58,7 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+@app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
