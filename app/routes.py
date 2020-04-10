@@ -8,7 +8,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
 
-#Decorators which invoke the function when called.
+#Decorators which invoke the function when root is called called.
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -73,6 +73,17 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+#<username> being the argument provided eg. 'susan'
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    #Will return 404 if user doesn't exist.
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html', user=user, posts=posts)
 
 @app.route('/logout')
 def logout():
