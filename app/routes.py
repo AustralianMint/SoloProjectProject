@@ -5,8 +5,9 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Post
 from werkzeug.urls import url_parse
+from .tables import Results
 
 #Decorators which invoke the function when root is called called.
 @app.route('/')
@@ -14,24 +15,9 @@ from werkzeug.urls import url_parse
 @login_required
 
 def index():
-    
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username:' 'Susan'},
-            'body': 'The Avengers movie was so cool!' 
-        },
-        {
-            'author': {'username:' 'Peezus'},
-            'body': 'Damn Son That Movie Was Sooo super cooooooolll!'
-        }
-    ]
-
-    #Returns template from /templates
-    return render_template('index.html', title='Home', posts=posts)
+    all_users = User.query.all()
+    init_Table = Results(all_users)
+    return render_template('index.html', title='Home', table=init_Table)
 
 #Define what methods are accepted.
 @app.route('/login', methods=['GET', 'POST'])
@@ -41,6 +27,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
+    #LoginForm class w/ defined features
 
     #Checks if user exists & Password matches
     #If correct, remembers usr, serves index.html
@@ -57,6 +44,7 @@ def login():
             next_page = url_for('index')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
+    #Render template fills placeholder variables w/ actual data.
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -65,6 +53,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        #Place form answers into db & set their password
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
