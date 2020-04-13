@@ -1,1 +1,2 @@
 FLASK_APP=soloProject.py
+FLASK_DEBUG=1
