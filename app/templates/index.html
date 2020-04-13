@@ -4,6 +4,8 @@
     <h1>Hi, {{ current_user.username }}!</h1>
     <hr>
     {{ table }}
+    <hr>
+    {{ table2 }}
     {% for post in posts %}
     <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
     {% endfor %}
