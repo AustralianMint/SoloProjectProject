@@ -5,9 +5,9 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Post
+from app.models import User, Post, Primary_clothes
 from werkzeug.urls import url_parse
-from .tables import Results
+from .tables import Results, P_Items
 
 #Decorators which invoke the function when root is called called.
 @app.route('/')
@@ -16,8 +16,10 @@ from .tables import Results
 
 def index():
     all_users = User.query.all()
+    primaryClothes = Primary_clothes.query.all()
     init_Table = Results(all_users)
-    return render_template('index.html', title='Home', table=init_Table)
+    init_Table_Primary = P_Items(primaryClothes)
+    return render_template('index.html', title='Home', table=init_Table, table2=init_Table_Primary)
 
 #Define what methods are accepted.
 @app.route('/login', methods=['GET', 'POST'])
