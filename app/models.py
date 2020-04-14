@@ -45,7 +45,17 @@ class Primary_clothes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clothingItem = db.Column(db.String(64))
     quantity = db.Column(db.Integer)
-    
+
+class Other_clothes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    clothingItem = db.Column(db.String(64))
+    quantity = db.Column(db.Integer)
+
+class High_clothes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    clothingItem = db.Column(db.String(64))
+    quantity = db.Column(db.Integer)
+
 #Keep track of logged in user
 @login.user_loader
 def load_user(id):
