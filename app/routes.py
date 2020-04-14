@@ -5,9 +5,9 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Post, Primary_clothes
+from app.models import User, Post, Primary_clothes, Other_clothes, High_clothes
 from werkzeug.urls import url_parse
-from .tables import Results, P_Items
+from .tables import Results, P_Items, Other_Items, high_clothes_table 
 
 #Decorators which invoke the function when root is called called.
 @app.route('/')
@@ -15,11 +15,20 @@ from .tables import Results, P_Items
 @login_required
 
 def index():
+    #Query respective db Models
     all_users = User.query.all()
     primaryClothes = Primary_clothes.query.all()
+    otherClothes = Other_clothes.query.all()
+    highClothes = High_clothes.query.all()
+
+    #Initialize already created table from tables.py
     init_Table = Results(all_users)
     init_Table_Primary = P_Items(primaryClothes)
-    return render_template('index.html', title='Home', table=init_Table, table2=init_Table_Primary)
+    init_Table_Other = Other_Items(otherClothes)
+    init_Table_High = high_clothes_table(highClothes)
+
+    return render_template('index.html', title='Home', table=init_Table,
+        table2=init_Table_Primary, table3=init_Table_Other, table4=init_Table_High)
 
 #Define what methods are accepted.
 @app.route('/login', methods=['GET', 'POST'])
