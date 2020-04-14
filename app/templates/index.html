@@ -5,7 +5,13 @@
     <hr>
     {{ table }}
     <hr>
+    <p>Primary-school clothes:</p>
     {{ table2 }}
+    <hr>
+    <p>Other school clothes:</p>
+    {{ table3 }}
+    <hr>
+    {{ table4 }}
     {% for post in posts %}
     <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
     {% endfor %}
