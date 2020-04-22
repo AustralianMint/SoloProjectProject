@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Edit Database entries </h1>
+    <form action='/editDb', method="POST" novalidate>
+        <!--protect against CSRF attack-->
+        {{ form.hidden_tag('form') }}
+        <!--form elements dropped in w/ specs-->
+        <p>
+            {{ form.clothingItem.label }}<br>
+            {{ form.clothingItem(size=32) }}<br>
+            {% for error in form.clothingItem.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.quantity.label }}<br>
+            {{ form.quantity(size=32) }}<br>
+            {% for error in form.quantity.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form> 
+{% endblock %}
