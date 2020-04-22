@@ -3,7 +3,7 @@
 
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, editDbForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post, Primary_clothes, Other_clothes, High_clothes
 from werkzeug.urls import url_parse
@@ -73,6 +73,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+#Shows user PP
 #<username> being the argument provided eg. 'susan'
 @app.route('/user/<username>')
 @login_required
@@ -84,6 +85,24 @@ def user(username):
         {'author': user, 'body': 'Test post #2'}
     ]
     return render_template('user.html', user=user, posts=posts)
+
+#dynamic route. When table2 is accessed and id of 'edit' is called
+#@app.route('/table2/<int:id>') 
+#def link():
+#    return render_template('editDb.html', title='Edit Database')
+
+@app.route('/editDb', methods=['GET', 'POST'])
+def editDb():
+    form = editDbForm()
+    flash('Regardless')
+    #if form.validate_on_submit():
+    if form.is_submitted():
+        flash('Congratulations, quantities have been updated!')
+        edited_amount = Primary_clothes(clothingItem=form.clothingItem.data, quantity=form.quantity.data)
+        db.session.add(edited_amount)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('editDb.html', title='Edit Database', form=form)
 
 @app.route('/logout')
 def logout():
