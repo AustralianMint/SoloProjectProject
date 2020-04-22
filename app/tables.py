@@ -1,4 +1,4 @@
-from flask_table import Table, Col
+from flask_table import Table, Col, LinkCol
 
 #for showing users
 class Results(Table):
@@ -11,7 +11,7 @@ class P_Items(Table):
     id = Col('Id', show=True)
     clothingItem = Col('Clothing Item')
     quantity = Col('Quantity')
-
+    
 #showing 'other' items.
 class Other_Items(Table):
     id = Col('Id', show=True)
