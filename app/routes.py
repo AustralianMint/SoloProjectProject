@@ -57,7 +57,6 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
     #Render template fills placeholder variables w/ actual data.
 
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -86,11 +85,6 @@ def user(username):
     ]
     return render_template('user.html', user=user, posts=posts)
 
-#dynamic route. When table2 is accessed and id of 'edit' is called
-#@app.route('/table2/<int:id>') 
-#def link():
-#    return render_template('editDb.html', title='Edit Database')
-
 @app.route('/editDb', methods=['GET', 'POST'])
 def editDb():
     form = editDbForm()
@@ -98,7 +92,8 @@ def editDb():
     #if form.validate_on_submit():
     if form.is_submitted():
         flash('Congratulations, quantities have been updated!')
-        edited_amount = Primary_clothes(clothingItem=form.clothingItem.data, quantity=form.quantity.data)
+        edited_amount = Primary_clothes(clothingItem=form.clothingItem.data, 
+            quantity=form.quantity.data)
         db.session.add(edited_amount)
         db.session.commit()
         return redirect(url_for('index'))
