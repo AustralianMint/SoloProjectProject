@@ -11,6 +11,7 @@ class P_Items(Table):
     id = Col('Id', show=True)
     clothingItem = Col('Clothing Item')
     quantity = Col('Quantity')
+    edit = LinkCol('Edit', 'editDb', url_kwargs=dict(id='id'))
     
 #showing 'other' items.
 class Other_Items(Table):
