@@ -87,17 +87,10 @@ def user(username):
 
 @app.route('/editDb', methods=['GET', 'POST'])
 def editDb():
-    form = editDbForm()
-    flash('Regardless')
-    #if form.validate_on_submit():
-    if form.is_submitted():
-        flash('Congratulations, quantities have been updated!')
-        edited_amount = Primary_clothes(clothingItem=form.clothingItem.data, 
-            quantity=form.quantity.data)
-        db.session.add(edited_amount)
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('editDb.html', title='Edit Database', form=form)
+    newAmount = Primary_clothes(quantity=11111)
+    db.session.add(newAmount)
+    db.session.commit()
+    return redirect(url_for(index))
 
 @app.route('/logout')
 def logout():
