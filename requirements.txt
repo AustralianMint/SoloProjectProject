@@ -1,2 +1,4 @@
 Flask
-Werkzeug
+Werkzeu
+gunicorn
+flask_sqlalchemyg
