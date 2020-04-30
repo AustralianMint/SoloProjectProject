@@ -1,4 +1,4 @@
 Flask
 Werkzeu
 gunicorn
-flask_sqlalchemyg
+flask_sqlalchemy
